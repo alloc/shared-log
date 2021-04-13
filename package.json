@@ -5,7 +5,6 @@
   "author": "Alec Larson",
   "license": "MIT",
   "repository": "alloc/shared-log",
-  "main": "dist/index.js",
   "files": [
     "src",
     "dist"

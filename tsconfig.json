@@ -1,5 +1,4 @@
 {
-  "include": ["src"],
   "compilerOptions": {
     "declaration": true,
     "lib": ["es2018"],
