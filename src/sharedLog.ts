@@ -38,7 +38,13 @@ log.events = events
 
 export { log, log as default }
 
-function emit(level: LogLevel, args: any[], filename?: string) {
+export { callerPath }
+
+/**
+ * Logging utilities can call this instead of `log` and use `callerPath`
+ * to include their caller's filename instead of the utility's filename.
+ */
+export function emit(level: LogLevel, args: any[], filename?: string) {
   if (events.listenerCount(level)) {
     events.emit(level, args, filename)
   } else if (defaultHandlers[level] && !events.listenerCount('all')) {
