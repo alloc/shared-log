@@ -1,5 +1,5 @@
 import EventEmitter = require('events')
-import callerPath = require('caller-path')
+import callsites = require('callsites')
 
 const events = new EventEmitter()
 const levels = ['debug', 'verbose', 'info', 'warn', 'error'] as const
@@ -38,8 +38,6 @@ log.events = events
 
 export { log, log as default }
 
-export { callerPath }
-
 /**
  * Logging utilities can call this instead of `log` and use `callerPath`
  * to include their caller's filename instead of the utility's filename.
@@ -60,4 +58,18 @@ const defaultHandlers: any = {
   info: console.log,
   warn: console.warn,
   error: console.error,
+}
+
+/**
+ * Get the file name of somewhere in the call stack.
+ *
+ * @param depth The number of frames to skip, where zero means "the immediate caller"
+ */
+export function callerPath(depth = 0) {
+  for (const callsite of callsites()) {
+    const file = callsite.getFileName()
+    if (file && --depth < -2) {
+      return file
+    }
+  }
 }
