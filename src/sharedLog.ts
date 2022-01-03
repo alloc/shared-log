@@ -1,9 +1,13 @@
-import EventEmitter = require('events')
-import callsites = require('callsites')
+import EventEmitter from 'events'
+import callsites from 'callsites'
 
-const events = new EventEmitter()
+declare const globalThis: any
+
+const kLogEvents = Symbol.for('shared-log')
+const events =
+  globalThis[kLogEvents] || (globalThis[kLogEvents] = new EventEmitter())
+
 const levels = ['debug', 'verbose', 'info', 'warn', 'error'] as const
-
 export type LogLevel = typeof levels[number]
 
 type LogMethods = { [P in LogLevel]: (...args: any[]) => void }
