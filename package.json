@@ -7,6 +7,7 @@
   "main": "dist/sharedLog.js",
   "module": "dist/sharedLog.mjs",
   "types": "dist/sharedLog.d.ts",
+  "sideEffects": false,
   "repository": "alloc/shared-log",
   "files": [
     "src",
